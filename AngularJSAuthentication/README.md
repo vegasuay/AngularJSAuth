@@ -12,7 +12,9 @@ As I stated before we’ll use token based approach to implement authentication 
 <b>* Mobile Friendly:</b> Cookies and browsers like each other, but storing cookies on native platforms (Android, iOS, Windows Phone) is not a trivial task, having standard way to authenticate users will simplify our life if we decided to consume the back-end API from native applications.
 
 <h3>Building the Back-End API</h3>
-<b>Step 1: Creating the Web API Project</b>
+<b>Step 1: Creating the Web API Project</b><br />
+
+![alt text](https://github.com/vegasuay/AngularJSAuth/blob/master/AngularJSAuthentication/Images/createproject.PNG)
 
 <b>Step 2: Installing the needed NuGet Packages:</b>
 Install-Package Microsoft.AspNet.WebApi.Owin<br />
@@ -53,4 +55,29 @@ Now it is the time to add our first Web API controller which will be used to reg
 By looking at the “Register” method you will notice that we’ve configured the endpoint for this method to be “/api/account/register” so any user wants to register into our system must issue HTTP POST request to this URI and the pay load for this request will contain the JSON object.
 
 Now you can run your application and issue HTTP POST request to your local URI: “http://localhost:port/api/account/register” if all went fine you will receive HTTP status code 200 and the database specified in connection string will be created automatically and the user will be inserted into table “dbo.AspNetUsers”.
+
+![alt text](https://github.com/vegasuay/AngularJSAuth/blob/master/AngularJSAuthentication/Images/post_register.PNG)
+
+The “GetErrorResult” method is just a helper method which is used to validate the “UserModel” and return the correct HTTP status code if the input data is invalid.
+
+<b>Step 8: Add Secured Orders Controller</b><br />
+Now we want to add another controller to serve our Orders, we’ll assume that this controller will return orders only for Authenticated users, to keep things simple we’ll return static data. So add new controller named “OrdersController” under “Controllers” folder.
+
+Notice how we added the “Authorize” attribute on the method “Get” so if you tried to issue HTTP GET request to the end point “http://localhost:port/api/orders” you will receive HTTP status code 401 unauthorized because the request you send till this moment doesn’t contain valid authorization header.
+
+<b>Step 9: Add support for OAuth Bearer Tokens Generation</b><br>
+Till this moment we didn’t configure our API to use OAuth authentication workflow.
+
+Here we’ve created new instance from class “OAuthAuthorizationServerOptions” and set its option as the below:
+
+* The path for generating tokens will be as :”http://localhost:port/token”. We’ll see how we will issue HTTP POST request to generate token in the next steps.
+* We’ve specified the expiry for token to be 24 hours, so if the user tried to use the same token for authentication after 24 hours from the issue time, his request will be rejected and HTTP status code 401 is returned.
+* We’ve specified the implementation on how to validate the credentials for users asking for tokens in custom class named “SimpleAuthorizationServerProvider”.
+
+Now we passed this options to the extension method “UseOAuthAuthorizationServer” so we’ll add the authentication middleware to the pipeline.
+
+![alt text](https://github.com/vegasuay/AngularJSAuth/blob/master/AngularJSAuthentication/Images/post_token.PNG)<br />
+![alt text](https://github.com/vegasuay/AngularJSAuth/blob/master/AngularJSAuthentication/Images/post_token_response.PNG)<br />
+
+
 
