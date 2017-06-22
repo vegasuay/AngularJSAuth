@@ -1,4 +1,4 @@
-#Token Based Authentication using ASP.NET Web API 2, Owin, and Identity
+# Token Based Authentication using ASP.NET Web API 2, Owin, and Identity
 
 In this tutorial we’ll build SPA using <b>AngularJS</b> for the front-end, and <b>ASP.NET Web API 2</b>, <b>Owin middleware</b>, and <b>ASP.NET Identity</b> for the back-end.
 The API supports CORS and accepts HTTP calls from any origin
@@ -40,7 +40,17 @@ Now we want to add “UserModel” which contains the properties needed to be se
 
 Now we need to add new connection string named “AuthContext” in our Web.Config class, so open you web.config and add 
 
-'''xml
-<connectionStrings>
-    <add name="AuthContext" connectionString="Data Source=(localdb)\v11.0;Initial Catalog=AngularJSAuth;Integrated Security=SSPI" providerName="System.Data.SqlClient" />
-</connectionStrings>'''
+connectionStrings
+    add name="AuthContext" connectionString="Data Source=(localdb)\v11.0;Initial Catalog=AngularJSAuth;Integrated Security=SSPI" providerName="System.Data.SqlClient"
+connectionStrings
+
+<b>Step 6: Add Repository class to support ASP.NET Identity System</b><br />
+Now we want to implement two methods needed in our application which they are: “RegisterUser” and “FindUser”, so add new class named “AuthRepository”.
+
+<b>Step 7: Add our “Account” Controller</b><br>
+Now it is the time to add our first Web API controller which will be used to register new users.
+
+By looking at the “Register” method you will notice that we’ve configured the endpoint for this method to be “/api/account/register” so any user wants to register into our system must issue HTTP POST request to this URI and the pay load for this request will contain the JSON object.
+
+Now you can run your application and issue HTTP POST request to your local URI: “http://localhost:port/api/account/register” if all went fine you will receive HTTP status code 200 and the database specified in connection string will be created automatically and the user will be inserted into table “dbo.AspNetUsers”.
+
