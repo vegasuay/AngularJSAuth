@@ -1,7 +1,7 @@
 # AngularJSAuth
 
 <h3>What we’ll build in this app?</h3>
-The front-end SPA will be built using <b>HTML5, AngularJS, and Twitter Bootstrap</b>. The back-end server will be built using <b>ASP.NET Web API 2 on top of Owin middleware not directly on top of ASP.NET</b>; the reason for doing so that we’ll configure the server to issue OAuth bearer token authentication using Owin middleware too, so setting up everything on the same pipeline is better approach. In addition to this we’ll use ASP.NET Identity system which is built on top of Owin middleware and we’ll use it to register new users and validate their credentials before generating the tokens.<br />
+The <u>front-end SPA</u> will be built using <b>HTML5, AngularJS, and Twitter Bootstrap</b>. The <u>back-end server</u> will be built using <b>ASP.NET Web API 2 on top of Owin middleware not directly on top of ASP.NET</b>; the reason for doing so that we’ll configure the server to issue OAuth bearer token authentication using Owin middleware too, so setting up everything on the same pipeline is better approach. In addition to this we’ll use ASP.NET Identity system which is built on top of Owin middleware and we’ll use it to register new users and validate their credentials before generating the tokens.<br />
 
 As I mentioned before our back-end API should accept request coming from any origin, not only our front-end, so we’ll be enabling CORS (Cross Origin Resource Sharing) in Web API as well for the OAuth bearer token provider.
 
