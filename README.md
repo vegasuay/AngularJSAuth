@@ -12,3 +12,4 @@ As I mentioned before our back-end API should accept request coming from any ori
 * Once the user is logged in successfully, the system should not ask for credentials or re-authentication for the next 24 hours 30 minutes because we are using refresh tokens.
 So in this post we’ll cover step by step how to build the back-end API, and on the next post we’ll cover how we’ll build and integrate the SPA with the API.
 
+![alt text](https://github.com/vegasuay/DesignPatterns/blob/master/AngularJSAuth/AngularJSAuthentication/images/portada.PNG)
