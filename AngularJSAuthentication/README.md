@@ -79,5 +79,30 @@ Now we passed this options to the extension method “UseOAuthAuthorizationServe
 ![alt text](https://github.com/vegasuay/AngularJSAuth/blob/master/AngularJSAuthentication/Images/post_token.PNG)<br />
 ![alt text](https://github.com/vegasuay/AngularJSAuth/blob/master/AngularJSAuthentication/Images/post_token_response.PNG)<br />
 
+<b>Step 10: Implement the “SimpleAuthorizationServerProvider” class</b><br />
+Add new folder named “Providers” then add new class named “SimpleAuthorizationServerProvider”.
+
+As you notice this class inherits from class “OAuthAuthorizationServerProvider”, we’ve overridden two methods “ValidateClientAuthentication” and “GrantResourceOwnerCredentials”. The first method is responsible for validating the “Client”, in our case we have only one client so we’ll always return that its validated successfully.
+
+The second method “GrantResourceOwnerCredentials” is responsible to validate the username and password sent to the authorization server’s token endpoint, so we’ll use the “AuthRepository” class we created earlier and call the method “FindUser” to check if the username and password are valid.
+
+If the credentials are valid we’ll create “ClaimsIdentity” class and pass the authentication type to it, in our case “bearer token”, then we’ll add two claims (“sub”,”role”) and those will be included in the signed token. You can add different claims here but the token size will increase for sure.
+
+Now generating the token happens behind the scenes when we call “context.Validated(identity)”.
+
+To allow CORS on the token middleware provider we need to add the header “Access-Control-Allow-Origin” to Owin context, if you forget this, generating the token will fail when you try to call it from your browser. Not that this allows CORS for token middleware provider not for ASP.NET Web API which we’ll add on the next step.
+
+<b>Step 11: Allow CORS for ASP.NET Web API</b><br />
+open class “Startup” again and add the highlighted line of code (line 8) to the method “Configuration” as the below:
+
+app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+<b>Step 12: Testing the Back-end API</b>
+Assuming that you registered the username “XXX” with password “SuperPass” in the step below, we’ll use the same username to generate token, so to test this out open your favorite REST client application in order to issue HTTP requests to generate token for user “XXX”. For me I’ll be using Advance REST client.
+
+![alt text](https://github.com/vegasuay/AngularJSAuth/blob/master/AngularJSAuthentication/Images/get_orders.PNG)<br />
+![alt text](https://github.com/vegasuay/AngularJSAuth/blob/master/AngularJSAuthentication/Images/get_orders_response.PNG)<br />
+
+If all is correct we’ll receive HTTP status 200 along with the secured data in the response body, if you try to change any character with signed token you directly receive HTTP status code 401 unauthorized.
 
 
