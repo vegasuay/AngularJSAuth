@@ -122,6 +122,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\get_orders.PNG" />
+    <Content Include="Images\get_orders_response.PNG" />
+    <Content Include="Images\portada.PNG" />
+    <Content Include="Images\post_register.PNG" />
+    <Content Include="Images\post_token.PNG" />
+    <Content Include="Images\post_token_response.PNG" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -148,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
